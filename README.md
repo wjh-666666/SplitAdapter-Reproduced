@@ -127,35 +127,6 @@ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
 python tests/test_variants.py            # quick CPU check of all adapter variants
 ```
 
-## Pretrained weights
-
-The weights used for the results above are attached to the
-[v1.0 release](https://github.com/wjh-666666/SplitAdapter-Reproduced/releases/tag/v1.0) (inference only):
-
-| File | Content |
-|---|---|
-| `base_g1_carrybox_finetuned.pt` | frozen base policy (PhysHSI carry-box policy fine-tuned on the paper's task distribution) |
-| `splitadapter_g1_carrybox_s{1,2,3}.pt` | SplitAdapter, training seeds 1–3 (to be used with the base policy above) |
-
-```bash
-mkdir -p weights && cd weights
-for f in base_g1_carrybox_finetuned.pt splitadapter_g1_carrybox_s1.pt splitadapter_g1_carrybox_s2.pt \
-         splitadapter_g1_carrybox_s3.pt SHA256SUMS; do
-  wget -q https://github.com/wjh-666666/SplitAdapter-Reproduced/releases/download/v1.0/$f
-done
-sha256sum -c SHA256SUMS && cd ..
-
-# MuJoCo sim-to-sim evaluation and rendering with the released weights
-python sim2sim/eval_mujoco.py --ckpt weights/splitadapter_g1_carrybox_s1.pt \
-    --base weights/base_g1_carrybox_finetuned.pt --trials 10 --seed 0
-MUJOCO_GL=egl python sim2sim/render_video.py --ckpt weights/splitadapter_g1_carrybox_s1.pt \
-    --base weights/base_g1_carrybox_finetuned.pt --mass 4 --height 0.3 --find_success 20 --out media/episode.gif
-# the frozen base alone
-python sim2sim/eval_mujoco.py --ckpt base --base weights/base_g1_carrybox_finetuned.pt --trials 10
-```
-
-MuJoCo evaluation only needs `third_party/PhysHSI` (for the G1 model); Isaac Gym is not required.
-
 ## Usage
 
 ```bash
