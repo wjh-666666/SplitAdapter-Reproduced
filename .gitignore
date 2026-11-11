@@ -1,0 +1,19 @@
+# third-party code (fetched by scripts/setup_third_party.sh, not redistributed)
+third_party/
+
+# training outputs
+logs/
+*.pt
+*.pt.tmp
+*.onnx
+
+# generated at runtime
+sim2sim/assets/
+
+# python / environments
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.cenv/
+.ipynb_checkpoints/

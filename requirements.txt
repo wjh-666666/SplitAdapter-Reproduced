@@ -1,0 +1,17 @@
+# Python 3.8 (required by Isaac Gym Preview 4). Install PyTorch separately, see README.
+numpy==1.23.5
+scipy
+matplotlib
+scikit-learn
+tensorboard
+pyyaml
+tqdm
+mujoco==3.2.3
+imageio
+pillow
+# PhysHSI / legged_gym dependencies
+onnx
+onnxruntime
+pydelatin
+pyfqmr
+muon_optimizer
